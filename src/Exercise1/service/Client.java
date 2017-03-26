@@ -14,6 +14,7 @@ public class Client {
                 + " \n" + service.getDeviceByStatus(Status.CONNECTED));
         System.out.println("USER LIST"
                 + " \n" + service.getDevicesBelongUser(2));
+        System.out.println(service.getDeviceById(1));
 
     }
 }

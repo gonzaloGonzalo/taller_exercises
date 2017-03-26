@@ -95,14 +95,7 @@ public class DeviceUserDAOimpl implements DeviceUserDAO {
     }
 
     public Device readDevice(int deviceId) {
-        Device dev = new Device();
-        for (Device device : listDevices) {
-            if (deviceId == device.getId()) {
-                dev = device;
-                break;
-            }
-        }
-        return dev;
+        return listDevices.stream().filter(d -> d.getId() == deviceId).findFirst().get();
     }
 
     public void updateDevice(Device device) {
@@ -121,6 +114,8 @@ public class DeviceUserDAOimpl implements DeviceUserDAO {
                 break;
             }
         }
+
+        listDevices.stream().filter(d -> d.getId()==deviceId).
     }
 
     public List<User> listAllUsers() {
@@ -128,13 +123,6 @@ public class DeviceUserDAOimpl implements DeviceUserDAO {
     }
 
     public User readUser(int userId) {
-        User user = new User();
-        for (User usr : listUsers) {
-            if (userId == usr.getId()) {
-                user = usr;
-                break;
-            }
-        }
-        return user;
+        return  listUsers.stream().filter(u -> u.getId()==userId).findFirst().get();
     }
 }

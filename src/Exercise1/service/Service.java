@@ -3,6 +3,7 @@ package Exercise1.service;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import Exercise1.dao.DeviceUserDAO;
 import Exercise1.dao.DeviceUserDAOimpl;
@@ -23,19 +24,17 @@ public class Service {
     }
 
     public List<Device> getDeviceByStatus(Status status) {
-        listDevicesByStatus = new ArrayList<>();
-        List<Device> listAllDevices = deviceUserDAO.listAllDevices();
-        for (Device device : listAllDevices) {
-            if (status == device.getStatus()) {
-                listDevicesByStatus.add(device);
-            }
-        }
-        return listDevicesByStatus;
+        return deviceUserDAO.listAllDevices().stream().filter(s -> s.getStatus() == status)
+                .collect(Collectors.toList());
     }
 
     public List<Device> getDevicesBelongUser(int userId) {
         listDevicesBelongUser = deviceUserDAO.readUser(userId).getListDevices();
         listDevicesBelongUser.sort(Comparator.comparing(Device::getStatus));
         return listDevicesBelongUser;
+    }
+
+    public Device getDeviceById(int idDevice){
+        return deviceUserDAO.readDevice(idDevice);
     }
 }
